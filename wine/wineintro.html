@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      Chapter&nbsp;5.&nbsp;Wine
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL-NS Stylesheets Vsnapshot" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <link rel="icon" href="../images/favicon.ico" type="image/x-icon" />
+  </head>
+  <body class="blfs" id="blfs-#497a1">
+    <div class="navheader">
+      <h4>
+        Gaming Linux<sup>®</sup> From Scratch <span class="phrase">(System
+        V</span> Edition) - Version #497a1
+      </h4>
+      <h3>
+        Part&nbsp;V.&nbsp;Wine
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="winechapter.html" title="Wine">Prev</a>
+          <p>
+            Wine
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="whatiswine.html" title=
+          "What is Wine?">Next</a>
+          <p>
+            What is Wine?
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="winechapter.html" title=
+          "Part&nbsp;V.&nbsp;Wine">Up</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "  Gaming Linux® From Scratch    (System V Edition)  - Version #497a1">
+          Home</a>
+        </li>
+      </ul>
+    </div>
+    <h1 class="chapter">
+      <a id="Wine" name="Wine"></a>Wine
+    </h1>
+    <div class="chapter" lang="en" xml:lang="en">
+      <p>
+        This section covers how to install the dependencies of <span class=
+        "application">Wine</span>, such as the MinGW-w64 toolchain, as well
+        as <span class="application">Wine</span> itself.
+      </p>
+      <div class="toc">
+        <h3>
+          Table of Contents
+        </h3>
+        <ul>
+          <li class="sect1">
+            <a href="whatiswine.html">What is Wine?</a>
+          </li>
+          <li class="sect1">
+            <a href="winedeps.html">Wine Dependencies</a>
+          </li>
+          <li class="sect1">
+            <a href="mingw-w64-headers.html">MinGW-w64-headers-12.0.0</a>
+          </li>
+          <li class="sect1">
+            <a href="mingw-w64-binutils.html">MinGW-w64-Binutils-2.44</a>
+          </li>
+          <li class="sect1">
+            <a href="mingw-w64-gcc-static.html">Static
+            MinGW-w64-GCC-14.2.0</a>
+          </li>
+          <li class="sect1">
+            <a href="mingw-w64.html">MinGW-w64-12.0.0</a>
+          </li>
+          <li class="sect1">
+            <a href="mingw-w64-gcc.html">MinGW-w64-GCC-14.2.0</a>
+          </li>
+          <li class="sect1">
+            <a href="libxkbcommon.html">libxkbcommon-1.8.1</a>
+          </li>
+          <li class="sect1">
+            <a href="sdl2.html">SDL2-2.30.11</a>
+          </li>
+          <li class="sect1">
+            <a href="nasm.html">NASM-2.16.03</a>
+          </li>
+          <li class="sect1">
+            <a href="libaom.html">libaom-3.12.0</a>
+          </li>
+          <li class="sect1">
+            <a href="fdk-aac.html">fdk-aac-2.0.3</a>
+          </li>
+          <li class="sect1">
+            <a href="lame.html">LAME-3.100</a>
+          </li>
+          <li class="sect1">
+            <a href="libvpx.html">libvpx-1.15.0</a>
+          </li>
+          <li class="sect1">
+            <a href="x264.html">x264-20240812</a>
+          </li>
+          <li class="sect1">
+            <a href="x265.html">x265-4.1</a>
+          </li>
+          <li class="sect1">
+            <a href="ffmpeg.html">FFmpeg-7.1.1</a>
+          </li>
+          <li class="sect1">
+            <a href="gstreamer10.html">gstreamer-1.26.0</a>
+          </li>
+          <li class="sect1">
+            <a href="gst10-plugins-base.html">gst-plugins-base-1.26.0</a>
+          </li>
+          <li class="sect1">
+            <a href="gst10-plugins-good.html">gst-plugins-good-1.26.0</a>
+          </li>
+          <li class="sect1">
+            <a href="gst10-plugins-bad.html">gst-plugins-bad-1.26.0</a>
+          </li>
+          <li class="sect1">
+            <a href="gst10-plugins-ugly.html">gst-plugins-ugly-1.26.0</a>
+          </li>
+          <li class="sect1">
+            <a href="gst10-libav.html">gst-libav-1.26.0</a>
+          </li>
+          <li class="sect1">
+            <a href="wine.html">Wine-10.4</a>
+          </li>
+          <li class="sect1">
+            <a href="dxvk.html">DXVK-2.6</a>
+          </li>
+          <li class="sect1">
+            <a href="vkd3d-proton.html">VKD3D-Proton-2.14.1</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="winechapter.html" title="Wine">Prev</a>
+          <p>
+            Wine
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="whatiswine.html" title=
+          "What is Wine?">Next</a>
+          <p>
+            What is Wine?
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="winechapter.html" title=
+          "Part&nbsp;V.&nbsp;Wine">Up</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "  Gaming Linux® From Scratch    (System V Edition)  - Version #497a1">
+          Home</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>
