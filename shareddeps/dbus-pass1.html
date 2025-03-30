@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      dbus-1.16.2 - Pass 1
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL-NS Stylesheets Vsnapshot" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <link rel="icon" href="../images/favicon.ico" type="image/x-icon" />
+  </head>
+  <body class="blfs" id="blfs-#497a1">
+    <div class="navheader">
+      <h4>
+        Gaming Linux<sup>®</sup> From Scratch <span class="phrase">(System
+        V</span> Edition) - Version #497a1
+      </h4>
+      <h3>
+        Chapter&nbsp;3.&nbsp;Shared Dependencies
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="git.html" title="Git-2.49.0">Prev</a>
+          <p>
+            Git-2.49.0
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="linux-pam.html" title=
+          "Linux-PAM-1.7.0">Next</a>
+          <p>
+            Linux-PAM-1.7.0
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="sdintro.html" title=
+          "Chapter&nbsp;3.&nbsp;Shared Dependencies">Up</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "  Gaming Linux® From Scratch    (System V Edition)  - Version #497a1">
+          Home</a>
+        </li>
+      </ul>
+    </div>
+    <h1 class="sect1">
+      <a id="dbus-pass1" name="dbus-pass1"></a>dbus-1.16.2 - Pass 1
+    </h1>
+    <div class="sect1" lang="en" xml:lang="en">
+      <div class="package" lang="en" xml:lang="en">
+        <h2 class="sect2">
+          Introduction to D-Bus - Pass 1
+        </h2>
+        <p>
+          <span class="application">D-Bus</span> is a message bus system, a
+          simple way for applications to talk to one another. <span class=
+          "application">D-Bus</span> supplies both a system daemon (for
+          events such as <span class="quote">“<span class="quote">new
+          hardware device added</span>”</span> or <span class=
+          "quote">“<span class="quote">printer queue changed</span>”</span>)
+          and a per-user-login-session daemon (for general IPC needs among
+          user applications). Also, the message bus is built on top of a
+          general one-to-one message passing framework, which can be used by
+          any two applications to communicate directly (without going through
+          the message bus daemon).
+        </p>
+        <p>
+          This is the first pass. A useful program, <span class=
+          "command"><strong>dbus-launch</strong></span>, will be compiled
+          later, but is not needed now. It depends on <a class="xref" href=
+          "x7lib.html" title="Xorg Libraries">Xorg Libraries</a> being
+          installed beforehand.
+        </p>
+        <div class="itemizedlist">
+          <ul class="compact">
+            <li class="listitem">
+              <p>
+                Download (HTTP): <a class="ulink" href=
+                "https://dbus.freedesktop.org/releases/dbus/dbus-1.16.2.tar.xz">
+                https://dbus.freedesktop.org/releases/dbus/dbus-1.16.2.tar.xz</a>
+              </p>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="installation" lang="en" xml:lang="en">
+        <h2 class="sect2">
+          Installation of D-Bus - Pass 1
+        </h2>
+        <p>
+          Install <span class="application">D-Bus</span> by running the
+          following commands (you may wish to review the <code class=
+          "filename">meson_options.txt</code> file first and add any desired
+          parameters to the <span class=
+          "command"><strong>meson</strong></span> command shown below):
+        </p>
+        <pre class="userinput"><kbd class="command">mkdir build &amp;&amp;
+cd    build &amp;&amp;
+
+meson setup --prefix=/usr          \
+            --buildtype=release    \
+            --wrap-mode=nofallback \
+            -D systemd=disabled    \
+            .. &amp;&amp;
+
+ninja</kbd></pre>
+        <p>
+          Now, as the <code class="systemitem">root</code> user:
+        </p>
+        <pre class="root"><kbd class="command">ninja install</kbd></pre>
+        <p>
+          If you are using a DESTDIR install, <span class=
+          "command"><strong>dbus-daemon-launch-helper</strong></span> needs
+          to be fixed afterwards. Issue, as <code class=
+          "systemitem">root</code> user:
+        </p>
+        <pre class="root"><kbd class=
+        "command">chown -v root:messagebus /usr/libexec/dbus-daemon-launch-helper &amp;&amp;
+chmod -v      4750       /usr/libexec/dbus-daemon-launch-helper</kbd></pre>
+        <p>
+          Generate the <span class="application">D-Bus</span> UUID to avoid
+          warnings when compiling some packages with the following command as
+          the <code class="systemitem">root</code> user:
+        </p>
+        <pre class="root"><kbd class=
+        "command">dbus-uuidgen --ensure</kbd></pre>
+        <p>
+          If using elogind, create a symlink to the <code class=
+          "filename">/var/lib/dbus/machine-id</code> file:
+        </p>
+        <pre class="root"><kbd class=
+        "command">ln -sfv /var/lib/dbus/machine-id /etc</kbd></pre>
+      </div>
+      <div class="sect2" lang="en" xml:lang="en">
+        <h2 class="sect2">
+          lib32 Installation of D-Bus
+        </h2>
+        <div class="admon note">
+          <img alt="[Note]" src="../images/note.png" />
+          <h3>
+            Note
+          </h3>
+          <p>
+            The program <span class=
+            "command"><strong>dbus-launch</strong></span> will not need to
+            have a lib32 version, so this lib32 compilation will be the first
+            and only needed pass unless you are upgrading D-Bus.
+          </p>
+        </div>
+        <p>
+          First clean the build directory:
+        </p>
+        <pre class="userinput"><kbd class="command">rm -rf *</kbd></pre>
+        <p>
+          Now install lib32-D-Bus by running the following commands:
+        </p>
+        <pre class="userinput"><kbd class=
+        "command">CC="gcc -m32" CXX="g++ -m32"           \
+PKG_CONFIG_PATH="/usr/lib32/pkgconfig" \
+meson setup --prefix=/usr              \
+            --libdir=/usr/lib32        \
+            --wrap-mode=nofallback     \
+            -D systemd=disabled        \
+            .. &amp;&amp;
+
+ninja</kbd></pre>
+        <p>
+          Now as the <code class="systemitem">root</code> user:
+        </p>
+        <pre class="root"><kbd class=
+        "command">DESTDIR=$PWD/DESTDIR ninja install    &amp;&amp;
+cp -vR DESTDIR/usr/lib32/* /usr/lib32 &amp;&amp;
+rm -rf DESTDIR                        &amp;&amp;
+ldconfig</kbd></pre>
+      </div>
+      <div class="commands" lang="en" xml:lang="en">
+        <h2 class="sect2">
+          Command Explanations
+        </h2>
+        <div class="admon note">
+          <img alt="[Note]" src="../images/note.png" />
+          <h3>
+            Note
+          </h3>
+          <p>
+            Inspect <code class="filename">meson_options.txt</code> for a
+            full list of options.
+          </p>
+        </div>
+        <p>
+          <em class="parameter"><code>--wrap-mode=nofallback</code></em>:
+          This switch prevents <span class=
+          "command"><strong>meson</strong></span> from using subproject
+          fallbacks for any dependency declarations in the build files,
+          stopping it downloading any optional dependency which is not
+          installed on the system.
+        </p>
+        <p>
+          <em class="parameter"><code>-D systemd=disabled</code></em>: Don't
+          install systemd support files even if <code class=
+          "filename">libsystemd</code> exists (i.e. the <a class="xref" href=
+          "elogind.html" title="elogind-255.17">elogind-255.17</a> package is
+          installed).
+        </p>
+      </div>
+      <div class="content" lang="en" xml:lang="en">
+        <h2 class="sect2">
+          Contents
+        </h2>
+        <p>
+          See the full list of contents at <a class="xref" href="dbus.html"
+          title="dbus-1.16.2">dbus-1.16.2</a>.
+        </p>
+      </div>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="git.html" title="Git-2.49.0">Prev</a>
+          <p>
+            Git-2.49.0
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="linux-pam.html" title=
+          "Linux-PAM-1.7.0">Next</a>
+          <p>
+            Linux-PAM-1.7.0
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="sdintro.html" title=
+          "Chapter&nbsp;3.&nbsp;Shared Dependencies">Up</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "  Gaming Linux® From Scratch    (System V Edition)  - Version #497a1">
+          Home</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>
