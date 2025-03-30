@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      What Drivers to Install
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL-NS Stylesheets Vsnapshot" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <link rel="icon" href="../images/favicon.ico" type="image/x-icon" />
+  </head>
+  <body class="blfs" id="blfs-#497a1">
+    <div class="navheader">
+      <h4>
+        Gaming Linux<sup>®</sup> From Scratch <span class="phrase">(System
+        V</span> Edition) - Version #497a1
+      </h4>
+      <h3>
+        Chapter&nbsp;3.&nbsp;Shared Dependencies
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="seatd.html" title="seatd-0.9.1">Prev</a>
+          <p>
+            seatd-0.9.1
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="gpuconfig.html" title=
+          "GPU Kernel Options and Firmware">Next</a>
+          <p>
+            GPU Kernel Options and Firmware
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="sdintro.html" title=
+          "Chapter&nbsp;3.&nbsp;Shared Dependencies">Up</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "  Gaming Linux® From Scratch    (System V Edition)  - Version #497a1">
+          Home</a>
+        </li>
+      </ul>
+    </div>
+    <h1 class="sect1">
+      <a id="whatdriver" name="whatdriver"></a>What Drivers to Install
+    </h1>
+    <div class="sect1" lang="en" xml:lang="en">
+      <p>
+        On Linux, there are multiple drivers that one can install. Choosing
+        the one you need can be difficult if you do not know what drivers are
+        for what vendor and the perks and downsides of each option. This
+        section explains all of that to better help you decide what you want
+        or need.
+      </p>
+      <div class="sect2" lang="en" xml:lang="en">
+        <h2 class="sect2">
+          AMD
+        </h2>
+        <p>
+          There are 3 AMD GPU drivers: AMDGPU (Radeon Southern Islands and
+          later), ATI (r300 and r600), and AMDGPU PRO (proprietary AMDGPU
+          driver).
+        </p>
+        <p>
+          <span class="emphasis"><em>AMDGPU</em></span>: This driver is for
+          AMD GPUs that are Southern Island Cards or later. It is open source
+          and is the most standard AMD GPU driver. This driver is in the
+          Linux kernel and has two Mesa dri drivers: Gallium driver -
+          <span class="emphasis"><em>radeonsi</em></span> and Vulkan driver -
+          <span class="emphasis"><em>amd</em></span>.
+        </p>
+        <p>
+          <span class="emphasis"><em>ATI</em></span>: This driver is for the
+          ATI AMD GPUs which precede GCN GPUs. It is open source and targets
+          older GPUs. The driver is in the Linux kernel and has three Mesa
+          dri drivers: Gallium drivers - <span class=
+          "emphasis"><em>r300</em></span> and <span class=
+          "emphasis"><em>r600</em></span>; and Vulkan driver - <span class=
+          "emphasis"><em>amd</em></span>.
+        </p>
+        <p>
+          <span class="emphasis"><em>AMDGPU PRO</em></span>: This driver is
+          proprietary. Most users don't install this driver as the open
+          source drivers are already well off. However, it is needed for
+          hardware acceleration encoding, useful for those who wish to record
+          and edit videos. Performance in games varies between the open
+          source and proprietary drivers so the ending factor is if you
+          record and edit videos or not. You will need the firmware and open
+          source kernel driver for this driver.
+        </p>
+        <p>
+          Summary: If you are a regular user with a modern AMD GPU, use
+          <span class="emphasis"><em>AMDGPU</em></span>. If you have an older
+          card, go with <span class="emphasis"><em>ATI</em></span>. Use
+          <span class="emphasis"><em>AMDGPU PRO</em></span> if you want an
+          improvement with hardware acceleration encoding.
+        </p>
+      </div>
+      <div class="sect2" lang="en" xml:lang="en">
+        <h2 class="sect2">
+          Intel
+        </h2>
+        <p>
+          Intel provides open source drivers, but for sake of simplicity, all
+          the relevant open source drivers will be classified as one -
+          <span class="emphasis"><em>i915</em></span>. There is another
+          driver called <span class="emphasis"><em>uvesafb</em></span>.
+        </p>
+        <p>
+          <span class="emphasis"><em>i915</em></span>: This driver, or rather
+          collection of drivers, is for most Intel integrated and discrete
+          GPUs. It is a single option in the Linux kernel but has various
+          Mesa Gallium3D and Vulkan dri drivers. There is a good list on the
+          MESA page under Command Explanations that will explain what
+          Gallium3D and Vulkan driver you will need.
+        </p>
+        <p>
+          <span class="emphasis"><em>uvesafb</em></span>: This driver is for
+          the Intel GMA 3600 series, a family of integrated video adapters
+          based on the PowerVR SGX 545 graphics core. This driver was in the
+          kernel since 3.5 but no longer since 4.15. This driver is not
+          included in the book because of its lack of use by most people, but
+          has a good Arch Linux wiki page at <a class="ulink" href=
+          "https://wiki.archlinux.org/title/Intel_GMA_3600">https://wiki.archlinux.org/title/Intel_GMA_3600</a>.
+        </p>
+      </div>
+      <div class="sect2" lang="en" xml:lang="en">
+        <h2 class="sect2">
+          NVIDIA
+        </h2>
+        <p>
+          The situation revolving around NVIDIA is more unfortunate than the
+          two vendors listed above and more complicated. NVIDIA does not
+          support open source drivers besides their own open source kernel
+          modules. Therefore performance with the open source drivers,
+          <span class="emphasis"><em>Nouveau</em></span> and <span class=
+          "emphasis"><em>NVK</em></span>, are slightly worse than NVIDIA's
+          proprietary driver. Installing the proprietary driver can be
+          easier. There is another driver called <span class=
+          "emphasis"><em>Zink</em></span> which translates Vulkan calls to
+          OpenGL calls which can replace <span class=
+          "emphasis"><em>Nouveau</em></span>.
+        </p>
+        <p>
+          <span class="emphasis"><em>Nouveau</em></span>: This driver is open
+          source and has worse performance than <span class=
+          "emphasis"><em>NVIDIA</em></span>. It is technically a kernel
+          driver, a Mesa Gallium3D driver, and Mesa Vulkan driver, although
+          they have different parts and the Vulkan driver is often referred
+          to as <span class="emphasis"><em>NVK</em></span>, depsite being
+          referred to as nouveau in <a class="xref" href="mesa.html" title=
+          "Mesa-25.0.2">Mesa-25.0.2</a>'s <em class="parameter"><code>-D
+          vulkan-drivers</code></em> parameter.
+        </p>
+        <p>
+          <span class="emphasis"><em>NVK</em></span>: This driver is a new
+          Mesa Vulkan driver and in its production, involved several kernel
+          patches. It is a Vulkan driver targetting Turing and later NVIDIA
+          GPUs. It does provide better performance than <span class=
+          "emphasis"><em>Nouveau</em></span> and is still improving. If you
+          want to compile this driver, you are going to need <a class="xref"
+          href="rustc.html" title="Rustc-1.85.1">rustc-1.85.1</a>, and if you
+          are doing multilib, are going to need the i686-unknown-linux-gnu
+          target. Also make sure to install <span class=
+          "emphasis"><em>Nouveau</em></span> if you want to install this
+          driver.
+        </p>
+        <p>
+          <span class="emphasis"><em>Zink</em></span>: This driver is a
+          Gallium3D driver in <a class="xref" href="mesa.html" title=
+          "Mesa-25.0.2">Mesa-25.0.2</a>, converting OpenGL calls to Vulkan
+          calls, drastically improving performance. It isn't specifically
+          related to <span class="emphasis"><em>Nouveau</em></span> but as
+          performance with <span class="emphasis"><em>Nouveau</em></span> is
+          not the best, using the <span class="emphasis"><em>Zink</em></span>
+          driver with <span class="emphasis"><em>NVK</em></span> is a great
+          idea. You can find out how to use <span class=
+          "emphasis"><em>Zink</em></span> instead in <a class="xref" href=
+          "whatnow.html" title="What Now?">What Now?</a>.
+        </p>
+        <p>
+          <span class="emphasis"><em>NVIDIA</em></span>: This is the
+          proprietary driver and the performance of this driver is better
+          than the open source alternatives. It allows the use of NVIDIA's
+          CUDA project which is useful for hardware acceleration, improving
+          performance of games and workstation applications. This driver has
+          a lot of issues to this day but still provides better performance,
+          thus its installation is provided in this book. Firmware isn't
+          needed as it is provided by this driver.
+        </p>
+        <p>
+          Summary: If you want good performance and care about workstation
+          use cases, install <span class="emphasis"><em>NVIDIA</em></span>.
+          If you only use OpenGL applications and don't want the proprietary
+          NVIDIA driver, use <span class="emphasis"><em>Nouveau</em></span>.
+          If you use a variety of applications and play games that utilize
+          Direct3D and Vulkan, install both <span class=
+          "emphasis"><em>Nouveau</em></span> and <span class=
+          "emphasis"><em>NVK</em></span>. Installing <span class=
+          "emphasis"><em>Zink</em></span> is a good idea, too.
+        </p>
+      </div>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="seatd.html" title="seatd-0.9.1">Prev</a>
+          <p>
+            seatd-0.9.1
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="gpuconfig.html" title=
+          "GPU Kernel Options and Firmware">Next</a>
+          <p>
+            GPU Kernel Options and Firmware
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="sdintro.html" title=
+          "Chapter&nbsp;3.&nbsp;Shared Dependencies">Up</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "  Gaming Linux® From Scratch    (System V Edition)  - Version #497a1">
+          Home</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

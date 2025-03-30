@@ -1,0 +1,1228 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      NVIDIA-570.133.07
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL-NS Stylesheets Vsnapshot" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <link rel="icon" href="../images/favicon.ico" type="image/x-icon" />
+  </head>
+  <body class="blfs" id="blfs-#497a1">
+    <div class="navheader">
+      <h4>
+        Gaming Linux<sup>®</sup> From Scratch <span class="phrase">(System
+        V</span> Edition) - Version #497a1
+      </h4>
+      <h3>
+        Chapter&nbsp;3.&nbsp;Shared Dependencies
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="gbm.html" title=
+          "GBM from Mesa-25.0.2">Prev</a>
+          <p>
+            GBM from Mesa-25.0.2
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="spirv-headers.html" title=
+          "SPIRV-Headers-1.4.309.0">Next</a>
+          <p>
+            SPIRV-Headers-1.4.309.0
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="sdintro.html" title=
+          "Chapter&nbsp;3.&nbsp;Shared Dependencies">Up</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "  Gaming Linux® From Scratch    (System V Edition)  - Version #497a1">
+          Home</a>
+        </li>
+      </ul>
+    </div>
+    <h1 class="sect1">
+      <a id="nvidia" name="nvidia"></a>NVIDIA-570.133.07
+    </h1>
+    <div class="sect1" lang="en" xml:lang="en">
+      <div class="package" lang="en" xml:lang="en">
+        <h2 class="sect2">
+          Introduction to NVIDIA
+        </h2>
+        <p>
+          The <span class="application">NVIDIA</span> proprietary driver
+          contains firmware, kernel drivers, userland drivers pertaining to
+          OpenGL, Vulkan, and hardware acceleration, and provides useful
+          utilites for NVIDIA cards.
+        </p>
+        <div class="itemizedlist">
+          <ul class="compact">
+            <li class="listitem">
+              <p>
+                Recommended kernel version to use: linux-6.13.7
+              </p>
+            </li>
+            <li class="listitem">
+              <p>
+                Download (HTTP): <a class="ulink" href=
+                "https://us.download.nvidia.com/XFree86/Linux-x86_64/570.133.07/NVIDIA-Linux-x86_64-570.133.07.run">
+                https://us.download.nvidia.com/XFree86/Linux-x86_64/570.133.07/NVIDIA-Linux-x86_64-570.133.07.run</a>
+              </p>
+            </li>
+          </ul>
+        </div>
+        <h3>
+          NVIDIA Dependencies
+        </h3>
+        <h4>
+          Required
+        </h4>
+        <p class="required">
+          <a class="xref" href="gbm.html" title="GBM from Mesa-25.0.2">GBM
+          from Mesa-25.0.2</a>, <a class="xref" href="libglvnd.html" title=
+          "libglvnd-1.7.0">libglvnd-1.7.0</a>, and <a class="xref" href=
+          "x7lib.html" title="Xorg Libraries">Xorg Libraries</a>
+        </p>
+        <h4>
+          Recommended
+        </h4>
+        <p class="recommended">
+          <a class="xref" href="libvdpau.html" title=
+          "libvdpau-1.5">libvdpau-1.5</a>, <a class="xref" href="libvk.html"
+          title="Vulkan-Loader-1.4.309">Vulkan-Loader-1.4.309</a>, and
+          <a class="xref" href="wayland.html" title=
+          "Wayland-1.23.1">Wayland-1.23.1</a>
+        </p>
+        <h4>
+          Recommended (Runtime)
+        </h4>
+        <p class="runtime">
+          <a class="xref" href="xorg-server.html" title=
+          "Xorg-Server-21.1.16">Xorg-Server-21.1.16</a> (required for running
+          <span class="command"><strong>nvidia-xconfig</strong></span>; this
+          driver will ask you if you want to run that utility during
+          installation; however, running this program can be done in
+          <a class="xref" href="whatnow.html" title="What Now?">What
+          Now?</a>)
+        </p>
+      </div>
+      <div class="installation" lang="en" xml:lang="en">
+        <h2 class="sect2">
+          Installation of NVIDIA
+        </h2>
+        <div class="admon note">
+          <img alt="[Note]" src="../images/note.png" />
+          <h3>
+            Note
+          </h3>
+          <p>
+            Make sure to execute the following command when an <span class=
+            "application">Xorg</span> instance isn't running, or else the
+            driver will complain and quit. Alternatively, you can pass
+            <em class=
+            "parameter"><code>--allow-installation-with-running-driver
+            --no-x-check</code></em> to override NVIDIA's warnings. This is
+            not recommended as it skips sanity checks, but is generally safe.
+            If you do this, you should reboot afterwards.
+          </p>
+          <p>
+            Along with that, be sure to have the kernel source that you have
+            compiled the kernel you are currently using with. Make sure the
+            source tree has not been moved, or else you will have to specify
+            the kernel source tree directory using <em class=
+            "parameter"><code>--kernel-source-path=&lt;path&gt;</code></em>.
+            If you don't have the source tree on your system, the driver will
+            fail to install.
+          </p>
+          <p>
+            For a complete list of flags, pass <em class=
+            "parameter"><code>-A</code></em>.
+          </p>
+        </div>
+        <p>
+          First enable XFree86 DRI and Nouveau <a href="#ftn.id10359" class=
+          "footnote" id="id10359" name="id10359"><sup class=
+          "footnote">[7]</sup></a> support in the kernel and recompile if
+          necessary.
+        </p>
+        <pre class="screen"><span class="blue">D</span>evice Drivers ---&gt;
+  <span class="blue">G</span>raphics support ---&gt;
+    &lt;*/M&gt; <span class=
+"blue">D</span>irect Rendering Manager (XFree86 4.1.0 and higher DRI support) ---&gt;
+                                                                      ...  [DRM]
+      &lt;M&gt; N<span class=
+"blue">o</span>uveau (NVIDIA) cards                                   [DRM_NOUVEAU]
+    <span class="blue">F</span>rame buffer Devices ---&gt;
+      &lt;M&gt; n<span class=
+"blue">V</span>idia Framebuffer Support                                 [FB_NVIDIA]</pre>
+        <div class="admon important">
+          <img alt="[Important]" src="../images/important.png" />
+          <h3>
+            Important
+          </h3>
+          <p>
+            Build these drivers as kernel modules so that they can properly
+            be blacklisted.
+          </p>
+        </div>
+        <p>
+          Install <span class="application">NVIDIA</span> by running the
+          following command as the <code class="systemitem">root</code> user:
+        </p>
+        <pre class="root"><kbd class=
+        "command">sh NVIDIA-Linux-x86_64-570.133.07.run \</kbd><kbd class=
+        "command">
+  --no-systemd          \</kbd><kbd class="command">
+  --no-abi-note         \
+  --install-compat32-libs</kbd></pre>
+        <div class="admon tip">
+          <img alt="[Tip]" src="../images/tip.png" />
+          <h3>
+            Tip
+          </h3>
+          <p>
+            If you aren't booted in the LFS system you are installing GLFS
+            for, then it is recommended to copy the above command to a shell
+            script, then once you are booted into the LFS system, you can run
+            the script. Running the command in a chroot is likely to cause
+            kernel modules to be unable to be built due to a different kernel
+            being used on the host.
+          </p>
+        </div>
+        <p>
+          And just follow the prompts. It will first ask if you wish to
+          install the NVIDIA Proprietary or MIT/GPL kernel modules. If you
+          have the NVIDIA Grace Hopper or NVIDIA Blackwell cards, you must
+          choose the MIT/GPL option. If you have a Turing, Ampere, Ada
+          Lovelace, or Hopper card, it is recommended to now choose the
+          MIT/GPL option. If you have a Maxwell, Pascal, or Volta card,
+          choose NVIDIA Proprietary. If you are using both an older and newer
+          card, but not the newest cards, go with NVIDIA Proprietary.
+        </p>
+        <div class="admon note">
+          <img alt="[Note]" src="../images/note.png" />
+          <h3>
+            Note
+          </h3>
+          <p>
+            If you are having trouble installing the driver, it might be
+            because it has issues with the Ncurses library. Pass <em class=
+            "parameter"><code>--silent</code></em> to the above command for
+            your architecture as it may solve the issue. Also pass <em class=
+            "parameter"><code>-M &lt;kernel_type&gt;</code></em> where
+            <em class="parameter"><code>&lt;kernel_type&gt;</code></em> can
+            be <em class="parameter"><code>open</code></em> or <em class=
+            "parameter"><code>proprietary</code></em>. For the notice above,
+            NVIDIA Proprietary is <em class=
+            "parameter"><code>proprietary</code></em> and MIT/GPL is
+            <em class="parameter"><code>open</code></em>.
+          </p>
+          <p>
+            You may also encounter an error saying the the driver failed to
+            build a kernel module. This is usually because the kernel version
+            you are using is <span class="quote">“<span class="quote">too
+            high.</span>”</span> If this happens, it may be necessary to
+            downgrade the kernel to a lower version. When a new driver
+            release happens, the driver will then most likely support the
+            kernel version at the time. At the top of this section, the
+            recommended kernel version to use with this driver is mentioned
+            to ensure that a build failure does not occur. The current kernel
+            version used for kernel parameters and such in this book is
+            linux-6.13.7.
+          </p>
+        </div>
+        <div class="admon important">
+          <img alt="[Important]" src="../images/important.png" />
+          <h3>
+            Important
+          </h3>
+          <p>
+            When you update the kernel, you will also need to reinstall the
+            <span class="application">NVIDIA</span> driver.
+          </p>
+          <p>
+            This is because there is glue when kernel modules are built. This
+            glue doesn't matter too much with first party modules (modules in
+            the kernel source tree) as the modules are updated at the same
+            time the kernel is. At that point, there is new glue holding them
+            together. However, when it comes to third party modules, they
+            aren't updated when the kernel updates, so this glue the third
+            party modules had on the kernel breaks. This leads to broken
+            kernel modules. This also applies if you stay on the same kernel
+            version but change some options, this can also break the glue.
+          </p>
+          <p>
+            Be sure that when you reinstall the driver, make sure you are
+            using the new kernel and have the kernel source you built from.
+            Otherwise the driver will fail to install.
+          </p>
+        </div>
+      </div>
+      <div class="commands" lang="en" xml:lang="en">
+        <h2 class="sect2">
+          Command Explanations
+        </h2>
+        <p>
+          <em class="parameter"><code>--no-systemd</code></em>: This
+          parameter disables Systemd support.
+        </p>
+        <p>
+          <em class="parameter"><code>--no-abi-note</code></em>: This
+          parameter removes a mostly useless note about a minimum kernel
+          version for NVIDIA OpenGL libraries.
+        </p>
+        <p>
+          <em class="parameter"><code>--install-compat32-libs</code></em>:
+          This option enables the installation of 32-bit libraries by default
+          instead of being prompted.
+        </p>
+      </div>
+      <div class="configuration" lang="en" xml:lang="en">
+        <h2 class="sect2">
+          Configuring NVIDIA
+        </h2>
+        <div class="sect3" lang="en" xml:lang="en">
+          <h3 class="sect3">
+            <a id="nvidia-config" name="nvidia-config"></a>Config Files
+          </h3>
+          <p>
+            <code class="filename">/etc/modprobe.d/nvfb.conf</code>
+          </p>
+        </div>
+        <div class="sect3" lang="en" xml:lang="en">
+          <h3 class="sect3">
+            Configuration Information
+          </h3>
+          <p>
+            Nouveau support was compiled into the kernel to make the NVIDIA
+            driver build. However, Nouveau conflicts with NVIDIA, so it
+            should be blacklisted.
+          </p>
+          <p>
+            As the <code class="systemitem">root</code> user, create the file
+            <code class="filename">/etc/modprobe.d/nvfb.conf</code> to
+            blacklist Nouveau:
+          </p>
+          <pre class="root"><kbd class=
+          "command">mkdir -pv /etc/modprobe.d &amp;&amp;
+cat &gt;&gt; /etc/modprobe.d/nvfb.conf &lt;&lt; "EOF"
+<code class="literal"># Begin /etc/modprobe.d/nvfb.conf
+
+blacklist nvidiafb
+blacklist nouveau
+
+# End /etc/modprobe.d/nvfb.conf</code>
+EOF</kbd></pre>
+          <p>
+            Furthermore, this driver does not install DRI <a href=
+            "#ftn.id10420" class="footnote" id="id10420" name=
+            "id10420"><sup class="footnote">[8]</sup></a> drivers or driver
+            stubs. Likewise, it does not install a <span class=
+            "application">pkg-config</span> file saying where to find the
+            associated files. The files aren't needed with this driver.
+            However, some applications expect the <span class=
+            "application">pkg-config</span> file to exist, namely <a class=
+            "xref" href="xorg-server.html" title=
+            "Xorg-Server-21.1.16">Xorg-Server-21.1.16</a>. Create one now as
+            the <code class="systemitem">root</code> user:
+          </p>
+          <pre class="root"><kbd class=
+          "command">cat &gt; /usr/lib/pkgconfig/dri.pc &lt;&lt; "EOF"
+<code class="literal">prefix=/usr
+includedir=${prefix}/include
+
+dridriverdir=/usr/lib/dri
+
+Name: dri
+Description: Direct Rendering Infrastructure
+Version: 570.133.07
+Requires.private: libdrm &gt;=  2.4.109
+Cflags: -I${includedir}</code>
+EOF</kbd></pre>
+          <p>
+            Applications that do require this file typically will not link
+            against any library in <code class=
+            "filename">/usr/lib/dri</code>. If you are worried that an
+            application will try to link against non-existent libraries, you
+            can compile <a class="xref" href="mesa.html" title=
+            "Mesa-25.0.2">Mesa-25.0.2</a> to get these libraries and a real
+            <span class="application">pkg-config</span> file. Note that those
+            libraries will not be used when this driver is in use.
+          </p>
+          <div class="admon note">
+            <img alt="[Note]" src="../images/note.png" />
+            <h3>
+              Note
+            </h3>
+            <p>
+              Now you should skip to <a class="xref" href="xcb-utils.html"
+              title="XCB Utils">XCB Utils</a>.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="content" lang="en" xml:lang="en">
+        <h2 class="sect2">
+          Contents
+        </h2>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">Installed Programs:</strong>
+              <span class="segbody">nvidia-bug-report.sh,
+              nvidia-cuda-mps-control, nvidia-cuda-mps-server,
+              nvidia-debugdump, nvidia-installer, nvidia-modprobe,
+              nvidia-ngx-updater, nvidia-settings, nvidia-smi,
+              nvidia-uninstall, and nvidia-xconfig</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">Installed Firmware:</strong>
+              <span class="segbody">gsp_ga10x.bin and gsp_tu10x.bin (firmware
+              is for the x86_64 driver)</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">Installed Libraries:</strong>
+              <span class="segbody">libEGL_nvidia.so, libGLESv1_CM_nvidia.so,
+              libGLESv2_nvidia.so, libGLX_nvidia.so, libcuda.so,
+              libcudadebugger.so, libglxserver_nvidia.so, libnvcuvid.so,
+              libnvidia-allocator.so, libnvidia-api.so, libnvidia-cfg.so,
+              libnvidia-egl-gbm.so, libnvidia-egl-wayland.so,
+              libnvidia-eglcore.so, libnvidia-encode.so, libnvidia-fbc.so,
+              libnvidia-glcore.so, libnvidia-glsi.so, libnvidia-glvkspirv.so,
+              libnvidia-gpucomp.so, libnvidia-gtk2.so, libnvidia-gtk3.so,
+              libnvidia-ml.so, libnvidia-ngx.so, libnvidia-nvvm.so,
+              libnvidia-opencl.so, libnvidia-opticalflow.so,
+              libnvidia-pkcs11-openssl3.so, libnvidia-pkcs11.so,
+              libnvidia-ptxjitcompiler.so, libnvidia-rtcore.so,
+              libnvidia-tls.so, libnvidia-wayland-client.so, libnvoptix.so,
+              for <a class="xref" href="../wine/wine.html" title=
+              "Wine-10.4">Wine-10.4</a> (_nvngx.dll and nvngx.dll),
+              libvdpau_nvidia.so, nvidia-drm_gbm.so, and nvidia_drv.so</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">Installed Directories:</strong>
+              <span class="segbody">/usr/lib/firmware/nvidia/570.133.07,
+              /usr/lib/gbm, /usr/lib/modprobe.d, /usr/lib/modules-load.d,
+              /usr/lib/nvidia/wine, /usr/lib/nvidia/xorg,
+              /usr/lib/sysusers.d, /usr/lib/vdpau,
+              /usr/lib/xorg/modules/drivers, /usr/share/X11/xorg.conf.d,
+              /usr/share/egl/egl_external_platform.d, /usr/share/nvidia,
+              /etc/share/vulkan/icd.d, /etc/share/vulkan/implicit_layer.d,
+              and /usr/src/debug/nvidia-utils</span>
+            </div>
+          </div>
+        </div>
+        <div class="variablelist">
+          <h3>
+            Short Descriptions
+          </h3>
+          <table border="0" class="variablelist">
+            <colgroup>
+              <col align="left" valign="top" />
+              <col />
+            </colgroup>
+            <tbody>
+              <tr>
+                <td>
+                  <p>
+                    <a id="nvidia-bug-report.sh" name=
+                    "nvidia-bug-report.sh"></a><span class=
+                    "term"><span class="command"><strong>nvidia-bug-report.sh</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    is the <span class="application">NVIDIA</span> bug
+                    reporting shell script.
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="nvidia-cuda-mps-control" name=
+                    "nvidia-cuda-mps-control"></a><span class=
+                    "term"><span class=
+                    "command"><strong>nvidia-cuda-mps-control</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    allows multiple CUDA processes to share a single GPU
+                    context
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="nvidia-cuda-mps-server" name=
+                    "nvidia-cuda-mps-server"></a><span class=
+                    "term"><span class=
+                    "command"><strong>nvidia-cuda-mps-server</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    creates the shared GPU context, manages the clients, and
+                    issues work to the GPU on behalf of the clients
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="nvidia-debugdump" name=
+                    "nvidia-debugdump"></a><span class="term"><span class=
+                    "command"><strong>nvidia-debugdump</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    collects the internal GPU state
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="nvidia-installer" name=
+                    "nvidia-installer"></a><span class="term"><span class=
+                    "command"><strong>nvidia-installer</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    installs, upgrades, and uninstalls the <span class=
+                    "application">NVIDIA</span> driver (running the runfile
+                    directly is recommended)
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="nvidia-modprobe" name=
+                    "nvidia-modprobe"></a><span class="term"><span class=
+                    "command"><strong>nvidia-modprobe</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    creates Linux device files and loads the <span class=
+                    "application">NVIDIA</span> kernel module
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="nvidia-ngx-updater" name=
+                    "nvidia-ngx-updater"></a><span class="term"><span class=
+                    "command"><strong>nvidia-ngx-updater</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    updates NGX features without requiring a full application
+                    update
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="nvidia-settings" name=
+                    "nvidia-settings"></a><span class="term"><span class=
+                    "command"><strong>nvidia-settings</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    a GUI application relying on <a class="ulink" href=
+                    "https://www.linuxfromscratch.org/blfs/view/svn/x/gtk3.html">
+                    GTK-3</a> that allows tweaking settings like resolution
+                    and refresh rate
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="nvidia-smi" name="nvidia-smi"></a><span class=
+                    "term"><span class=
+                    "command"><strong>nvidia-smi</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    provides montioring information for Tesla and select
+                    Quadro devices
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="nvidia-uninstall" name=
+                    "nvidia-uninstall"></a><span class="term"><span class=
+                    "command"><strong>nvidia-uninstall</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    installs, upgrades, and uninstalls the <span class=
+                    "application">NVIDIA</span> driver (running the runfile
+                    directly is recommended)
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="nvidia-xconfig" name=
+                    "nvidia-xconfig"></a><span class="term"><span class=
+                    "command"><strong>nvidia-xconfig</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    manipulates <span class="application">X11</span>
+                    configuration files to allow the <span class=
+                    "application">NVIDIA</span> driver to be used when
+                    starting <span class="application">X11</span>
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="libEGL_nvidia" name=
+                    "libEGL_nvidia"></a><span class="term"><code class=
+                    "filename">libEGL_nvidia.so</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    provides <span class="application">NVIDIA</span>
+                    implementations of OpenGL functionality
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="libGLESv1_CM_nvidia" name=
+                    "libGLESv1_CM_nvidia"></a><span class="term"><code class=
+                    "filename">libGLESv1_CM_nvidia.so</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    provides the API entry points for all OpenGL ES and EGL
+                    function calls
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="libGLESv2_nvidia" name=
+                    "libGLESv2_nvidia"></a><span class="term"><code class=
+                    "filename">libGLESv2_nvidia.so</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    provides the API entry points for all OpenGL ES and EGL
+                    function calls
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="libGLX_nvidia" name=
+                    "libGLX_nvidia"></a><span class="term"><code class=
+                    "filename">libGLX_nvidia.so</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    provides <span class="application">NVIDIA</span>
+                    implementations of OpenGL functionality
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="libcuda" name="libcuda"></a><span class=
+                    "term"><code class="filename">libcuda.so</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    provides runtime support for CUDA
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="libcudadebugger" name=
+                    "libcudadebugger"></a><span class="term"><code class=
+                    "filename">libcudadebugger.so</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    provides support for debugging CUDA applications
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="libglxserver_nvidia" name=
+                    "libglxserver_nvidia"></a><span class="term"><code class=
+                    "filename">libglxserver_nvidia.so</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    is the <span class="application">NVIDIA</span> GLX
+                    extension module for <span class="application">X11</span>
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="libnvcuvid" name="libnvcuvid"></a><span class=
+                    "term"><code class="filename">libnvcuvid.so</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    provides an interface to hardware video decoding
+                    capabilities
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="libnvidia-allocator" name=
+                    "libnvidia-allocator"></a><span class="term"><code class=
+                    "filename">libnvidia-allocator.so</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    is used internally by other driver components
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="libnvidia-api" name=
+                    "libnvidia-api"></a><span class="term"><code class=
+                    "filename">libnvidia-api.so</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    provides an interface for managing properties of GPUs.
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="libnvidia-cfg" name=
+                    "libnvidia-cfg"></a><span class="term"><code class=
+                    "filename">libnvidia-cfg.so</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    is used internally by other driver components
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="libnvidia-egl-gbm" name=
+                    "libnvidia-egl-gbm"></a><span class="term"><code class=
+                    "filename">libnvidia-egl-gbm.so</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    provides GBM EGL application support
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="libnvidia-egl-wayland" name=
+                    "libnvidia-egl-wayland"></a><span class=
+                    "term"><code class=
+                    "filename">libnvidia-egl-wayland.so</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    provides client-side <span class=
+                    "application">Wayland</span> EGL application support
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="libnvidia-eglcore" name=
+                    "libnvidia-eglcore"></a><span class="term"><code class=
+                    "filename">libnvidia-eglcore.so</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    is used internally by other driver components
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="libnvidia-encode" name=
+                    "libnvidia-encode"></a><span class="term"><code class=
+                    "filename">libnvidia-encode.so</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    provides an interface to video encoder hardware
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="libnvidia-fbc" name=
+                    "libnvidia-fbc"></a><span class="term"><code class=
+                    "filename">libnvidia-fbc.so</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    provides an interface to capture and optionally encode
+                    the framebuffer of an <span class=
+                    "application">X11</span> server screen
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="libnvidia-glcore" name=
+                    "libnvidia-glcore"></a><span class="term"><code class=
+                    "filename">libnvidia-glcore.so</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    is used internally by other driver components
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="libnvidia-glsi" name=
+                    "libnvidia-glsi"></a><span class="term"><code class=
+                    "filename">libnvidia-glsi.so</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    is used internally by other driver components
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="libnvidia-glvkspirv" name=
+                    "libnvidia-glvkspirv"></a><span class="term"><code class=
+                    "filename">libnvidia-glvkspirv.so</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    is used internally by other driver components
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="libnvidia-gpucomp" name=
+                    "libnvidia-gpucomp"></a><span class="term"><code class=
+                    "filename">libnvidia-gpucomp.so</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    is used internally by other driver components
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="libnvidia-gtk2" name=
+                    "libnvidia-gtk2"></a><span class="term"><code class=
+                    "filename">libnvidia-gtk2.so</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    provides the <span class=
+                    "command"><strong>nvidia-settings</strong></span> user
+                    interface
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="libnvidia-gtk3" name=
+                    "libnvidia-gtk3"></a><span class="term"><code class=
+                    "filename">libnvidia-gtk3.so</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    provides the <span class=
+                    "command"><strong>nvidia-settings</strong></span> user
+                    interface
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="libnvidia-ml" name="libnvidia-ml"></a><span class=
+                    "term"><code class=
+                    "filename">libnvidia-ml.so</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    provides a monitoring and management API
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="libnvidia-ngx" name=
+                    "libnvidia-ngx"></a><span class="term"><code class=
+                    "filename">libnvidia-ngx.so</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    provides functions for AI features
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="libnvidia-nvvm" name=
+                    "libnvidia-nvvm"></a><span class="term"><code class=
+                    "filename">libnvidia-nvvm.so</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    provides JIT link-time-optimization for the CUDA driver
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="libnvidia-opencl" name=
+                    "libnvidia-opencl"></a><span class="term"><code class=
+                    "filename">libnvidia-opencl.so</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    provides <span class="application">NVIDIA</span>'s
+                    implementation of the OpenCL API standard
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="libnvidia-opticalflow" name=
+                    "libnvidia-opticalflow"></a><span class=
+                    "term"><code class=
+                    "filename">libnvidia-opticalflow.so</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    can be used for hardware-accelerated computation of
+                    optical flow vectors and stereo disparity values
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="libnvidia-pkcs11-openssl3" name=
+                    "libnvidia-pkcs11-openssl3"></a><span class=
+                    "term"><code class=
+                    "filename">libnvidia-pkcs11-openssl3.so</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    is a cryptography library wrapper aiming to provide
+                    cryptography operations when the GPU and driver are
+                    operating in Confidential Compute mode
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="libnvidia-pkcs11" name=
+                    "libnvidia-pkcs11"></a><span class="term"><code class=
+                    "filename">libnvidia-pkcs11.so</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    is a cryptography library wrapper aiming to provide
+                    cryptography operations when the GPU and driver are
+                    operating in Confidential Compute mode
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="libnvidia-ptxjitcompiler" name=
+                    "libnvidia-ptxjitcompiler"></a><span class=
+                    "term"><code class=
+                    "filename">libnvidia-ptxjitcompiler.so</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    is a JIT compiler which compiles PTX into GPU machine
+                    code and is used by the CUDA driver
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="libnvidia-rtcore" name=
+                    "libnvidia-rtcore"></a><span class="term"><code class=
+                    "filename">libnvidia-rtcore.so</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    is used internally by other driver components
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="libnvidia-tls" name=
+                    "libnvidia-tls"></a><span class="term"><code class=
+                    "filename">libnvidia-tls.so</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    provides thread local storage support for the
+                    <span class="application">NVIDIA</span> OpenGL libraries
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="libnvidia-wayland-client" name=
+                    "libnvidia-wayland-client"></a><span class=
+                    "term"><code class=
+                    "filename">libnvidia-wayland-client.so</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    is required for <span class=
+                    "command"><strong>nvidia-settings</strong></span> on
+                    <span class="application">Wayland</span>
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="libnvoptix" name="libnvoptix"></a><span class=
+                    "term"><code class="filename">libnvoptix.so</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    implements the OptiX ray tracing engine
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="libvdpau_nvidia" name=
+                    "libvdpau_nvidia"></a><span class="term"><code class=
+                    "filename">libvdpau_nvidia.so</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    provides the <span class="application">NVIDIA</span>
+                    implementation for the VDPAU library
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="_nvngx" name="_nvngx"></a><span class=
+                    "term"><code class="filename">_nvngx.dll</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    provides DLSS support for use with <span class=
+                    "application">Wine</span>
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="nvngx" name="nvngx"></a><span class=
+                    "term"><code class="filename">nvngx.dll</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    provides DLSS support for use with Proton
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="nvidia-drm_gbm" name=
+                    "nvidia-drm_gbm"></a><span class="term"><code class=
+                    "filename">nvidia-drm_gbm.so</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    is the <span class="application">NVIDIA</span>
+                    implementation of GBM
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="nvidia_drv" name="nvidia_drv"></a><span class=
+                    "term"><code class="filename">nvidia_drv.so</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    is the <span class="application">NVIDIA</span>
+                    <span class="application">X11</span> driver
+                  </p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="footnotes">
+        <br />
+        <hr width="100" align="left" />
+        <div id="ftn.id10359" class="footnote">
+          <p>
+            <a href="#id10359" class="para"><sup class="para">[7]</sup></a>
+            Newer versions of the NVIDIA drivers will fail to compile with
+            TTY support unless a graphics driver is included in the kernel.
+            Nouveau is used here, though alternate graphics drivers may also
+            work.
+          </p>
+        </div>
+        <div id="ftn.id10420" class="footnote">
+          <p>
+            <a href="#id10420" class="para"><sup class="para">[8]</sup></a>
+            Direct Rendering Infrastructure.
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="gbm.html" title=
+          "GBM from Mesa-25.0.2">Prev</a>
+          <p>
+            GBM from Mesa-25.0.2
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="spirv-headers.html" title=
+          "SPIRV-Headers-1.4.309.0">Next</a>
+          <p>
+            SPIRV-Headers-1.4.309.0
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="sdintro.html" title=
+          "Chapter&nbsp;3.&nbsp;Shared Dependencies">Up</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "  Gaming Linux® From Scratch    (System V Edition)  - Version #497a1">
+          Home</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

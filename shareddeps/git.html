@@ -1,0 +1,515 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      Git-2.49.0
+    </title>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/lfs.css" />
+    <meta name="generator" content="DocBook XSL-NS Stylesheets Vsnapshot" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+    <link rel="icon" href="../images/favicon.ico" type="image/x-icon" />
+  </head>
+  <body class="blfs" id="blfs-#497a1">
+    <div class="navheader">
+      <h4>
+        Gaming Linux<sup>®</sup> From Scratch <span class="phrase">(System
+        V</span> Edition) - Version #497a1
+      </h4>
+      <h3>
+        Chapter&nbsp;3.&nbsp;Shared Dependencies
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="wget.html" title="Wget-1.25.0">Prev</a>
+          <p>
+            Wget-1.25.0
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="dbus-pass1.html" title=
+          "dbus-1.16.2 - Pass 1">Next</a>
+          <p>
+            dbus-1.16.2 - Pass 1
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="sdintro.html" title=
+          "Chapter&nbsp;3.&nbsp;Shared Dependencies">Up</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "  Gaming Linux® From Scratch    (System V Edition)  - Version #497a1">
+          Home</a>
+        </li>
+      </ul>
+    </div>
+    <h1 class="sect1">
+      <a id="git" name="git"></a>Git-2.49.0
+    </h1>
+    <div class="sect1" lang="en" xml:lang="en">
+      <div class="package" lang="en" xml:lang="en">
+        <h2 class="sect2">
+          Introduction to Git
+        </h2>
+        <p>
+          <span class="application">Git</span> is a free and open source,
+          distributed version control system designed to handle everything
+          from small to very large projects with speed and efficiency. Every
+          <span class="application">Git</span> clone is a full-fledged
+          repository with complete history and full revision tracking
+          capabilities, not dependent on network access or a central server.
+          Branching and merging are fast and easy to do. <span class=
+          "application">Git</span> is used for version control of files, much
+          like tools such as <span class="application">Mercurial</span>,
+          <span class="application">Bazaar</span>, <span class=
+          "application">Subversion</span>, <a class="ulink" href=
+          "https://www.nongnu.org/cvs/">CVS</a>, <span class=
+          "application">Perforce</span>, and <span class="application">Team
+          Foundation Server</span>.
+        </p>
+        <div class="itemizedlist">
+          <ul class="compact">
+            <li class="listitem">
+              <p>
+                Download (HTTP): <a class="ulink" href=
+                "https://www.kernel.org/pub/software/scm/git/git-2.49.0.tar.xz">
+                https://www.kernel.org/pub/software/scm/git/git-2.49.0.tar.xz</a>
+              </p>
+            </li>
+          </ul>
+        </div>
+        <h3>
+          Additional Downloads
+        </h3>
+        <div class="itemizedlist">
+          <ul class="compact">
+            <li class="listitem">
+              <p>
+                <a class="ulink" href=
+                "https://www.kernel.org/pub/software/scm/git/git-manpages-2.49.0.tar.xz">
+                https://www.kernel.org/pub/software/scm/git/git-manpages-2.49.0.tar.xz</a>
+              </p>
+            </li>
+            <li class="listitem">
+              <p>
+                <a class="ulink" href=
+                "https://www.kernel.org/pub/software/scm/git/git-htmldocs-2.49.0.tar.xz">
+                https://www.kernel.org/pub/software/scm/git/git-htmldocs-2.49.0.tar.xz</a>
+                and other docs
+              </p>
+            </li>
+          </ul>
+        </div>
+        <h3>
+          Git Dependencies
+        </h3>
+        <h4>
+          Recommended
+        </h4>
+        <p class="recommended">
+          <a class="xref" href="curl.html" title=
+          "cURL-8.12.1">cURL-8.12.1</a> (needed to use <span class=
+          "application">Git</span> over http, https, ftp or ftps)
+        </p>
+      </div>
+      <div class="installation" lang="en" xml:lang="en">
+        <h2 class="sect2">
+          Installation of Git
+        </h2>
+        <p>
+          Install <span class="application">Git</span> by running the
+          following commands:
+        </p>
+        <pre class="userinput"><kbd class=
+        "command">./configure --prefix=/usr \
+            --with-gitconfig=/etc/gitconfig \
+            --with-python=python3 &amp;&amp;
+make</kbd></pre>
+        <p>
+          Now, as the <code class="systemitem">root</code> user:
+        </p>
+        <pre class="root"><kbd class=
+        "command">make perllibdir=/usr/lib/perl5/5.40/site_perl install</kbd></pre>
+        <h3>
+          If you downloaded the man pages and/or html docs
+        </h3>
+        <p>
+          If you downloaded the man pages untar them as the <code class=
+          "systemitem">root</code> user:
+        </p>
+        <pre class="root"><kbd class=
+        "command">tar -xf ../git-manpages-2.49.0.tar.xz \
+    -C /usr/share/man --no-same-owner --no-overwrite-dir</kbd></pre>
+        <p>
+          If you downloaded the html docs untar them as the <code class=
+          "systemitem">root</code> user:
+        </p>
+        <pre class="root"><kbd class=
+        "command">mkdir -vp   /usr/share/doc/git-2.49.0 &amp;&amp;
+tar   -xf   ../git-htmldocs-2.49.0.tar.xz \
+      -C    /usr/share/doc/git-2.49.0 --no-same-owner --no-overwrite-dir &amp;&amp;
+
+find        /usr/share/doc/git-2.49.0 -type d -exec chmod 755 {} \; &amp;&amp;
+find        /usr/share/doc/git-2.49.0 -type f -exec chmod 644 {} \;</kbd></pre>
+        <h3>
+          Reorganize text and html in the html-docs
+        </h3>
+        <p>
+          The html-docs include a lot of plain text files. Reorganize the
+          files as the <code class="systemitem">root</code> user:
+        </p>
+        <pre class="root"><kbd class=
+        "command">mkdir -vp /usr/share/doc/git-2.49.0/man-pages/{html,text}         &amp;&amp;
+mv        /usr/share/doc/git-2.49.0/{git*.adoc,man-pages/text}     &amp;&amp;
+mv        /usr/share/doc/git-2.49.0/{git*.,index.,man-pages/}html &amp;&amp;
+
+mkdir -vp /usr/share/doc/git-2.49.0/technical/{html,text}         &amp;&amp;
+mv        /usr/share/doc/git-2.49.0/technical/{*.adoc,text}        &amp;&amp;
+mv        /usr/share/doc/git-2.49.0/technical/{*.,}html           &amp;&amp;
+
+mkdir -vp /usr/share/doc/git-2.49.0/howto/{html,text}             &amp;&amp;
+mv        /usr/share/doc/git-2.49.0/howto/{*.adoc,text}            &amp;&amp;
+mv        /usr/share/doc/git-2.49.0/howto/{*.,}html               &amp;&amp;
+
+sed -i '/^&lt;a href=/s|howto/|&amp;html/|' /usr/share/doc/git-2.49.0/howto-index.html &amp;&amp;
+sed -i '/^\* link:/s|howto/|&amp;html/|' /usr/share/doc/git-2.49.0/howto-index.adoc</kbd></pre>
+      </div>
+      <div class="sect2" lang="en" xml:lang="en">
+        <h2 class="sect2">
+          Using Git
+        </h2>
+        <p>
+          This Git installation doesn't have the full power Git can provide,
+          such as scheduling and the like. If you want even more features,
+          check <a class="ulink" href=
+          "https://www.linuxfromscratch.org/blfs/view/svn/general/git.html">https://www.linuxfromscratch.org/blfs/view/svn/general/git.html</a>.
+          However, this installation if you installed <a class="xref" href=
+          "curl.html" title="cURL-8.12.1">cURL-8.12.1</a> can provide enough
+          features to be of good use for you, such as the ability to clone
+          repos. This is sometimes a necessity when developers don't publish
+          releases or haven't in a long time, so the repo is the only way to
+          obtain the (hopefully) up to date package. In order to clone a
+          repo, simply invoke:
+        </p>
+        <pre class="userinput"><kbd class=
+        "command">git clone https://path/to/repo.git</kbd></pre>
+        <p>
+          The above command will then clone the entire repository besides
+          subprojects, something that some projects do and require special
+          instructions. A directory will be created, called <code class=
+          "filename">repo</code>, in the current working directory, with all
+          the repo's files being in that just created directory. If you want
+          to for some reason change the directory name, you can do it when
+          you clone the repo, like so:
+        </p>
+        <pre class="userinput"><kbd class=
+        "command">git clone https://path/to/repo.git newname</kbd></pre>
+        <p>
+          The above command will create the directory called <code class=
+          "filename">newname</code> and put all the repo's files in that
+          directory. Eventually you'll come across a repository that has some
+          subprojects, for instance an emulator that depends on graphic
+          libraries and intends to compile a static version of it. In order
+          to pull in those subprojects, you must also invoke the <em class=
+          "parameter"><code>--recurse-submodules</code></em> option. This
+          will clone all the subprojects and check them out.
+        </p>
+      </div>
+      <div class="sect2" lang="en" xml:lang="en">
+        <h2 class="sect2">
+          Git Repo vs Release Archives
+        </h2>
+        <p>
+          Most of the packaged source code in GLFS are packaged in tarballs
+          or zipfiles. These tarballs and zipfiles were created as part of a
+          release, and often include files not found in the repo equivalent
+          where the package development happens. Usually the extra included
+          files are the configure scripts you should now be used to using.
+          They are generated manually using <span class=
+          "command"><strong>aclocal</strong></span>, <span class=
+          "command"><strong>autoconf</strong></span>, and <span class=
+          "command"><strong>automake</strong></span>. The configure scripts
+          are often not in the repos, so if the git repo gets cloned, you
+          will have to generate the configure script yourself if you find
+          <code class="filename">configure.ac</code>, <code class=
+          "filename">Makefile.am</code>, and possibly <code class=
+          "filename">autogen.sh</code>. You won't need to do this if you find
+          the repo has a <code class="filename">Makefile</code>, <code class=
+          "filename">meson_options.txt</code>, or <code class=
+          "filename">CMakeLists.txt</code>.
+        </p>
+        <p>
+          Another big difference between the repo and the release package is
+          that the repo probably has had commits after the last release if it
+          had any, and new commits can introduce bugs or prevent compilation.
+          When developers prepare a new release, often they search for
+          issues, bugs, and compilation errors, making it stable before they
+          publish the release and its related package files. Release packages
+          aren't entirely safe from issues and can help with causing issues
+          as files can be added. Sometimes you can tell if something is
+          wrong, sometimes you can't. It's always important to be up to date
+          with security news to prevent damage.
+        </p>
+      </div>
+      <div class="commands" lang="en" xml:lang="en">
+        <h2 class="sect2">
+          Command Explanations
+        </h2>
+        <div class="admon note">
+          <img alt="[Note]" src="../images/note.png" />
+          <h3>
+            Note
+          </h3>
+          <p>
+            Run <span class="command"><strong>./configure
+            --help</strong></span> for a full list of options.
+          </p>
+        </div>
+        <p>
+          <em class=
+          "parameter"><code>--with-gitconfig=/etc/gitconfig</code></em>: This
+          sets <code class="filename">/etc/gitconfig</code> as the file that
+          stores the default, system wide, <span class=
+          "application">Git</span> settings.
+        </p>
+        <p>
+          <em class="parameter"><code>--with-python=python3</code></em>: Use
+          this switch to use <span class="application">Python 3</span>,
+          instead of the EOL'ed <span class="application">Python 2</span>.
+          Python is used for the <span class="command"><strong>git
+          p4</strong></span> interface to Perforce repositories, and also
+          used in some tests.
+        </p>
+        <p>
+          <span class="command"><strong>tar -xf ../git-manpages-2.49.0.tar.gz
+          -C /usr/share/man --no-same-owner</strong></span>: This untars
+          <code class="filename">git-manpages-2.49.0.tar.gz</code>. The
+          <code class="option">-C</code> option makes tar change directory to
+          <code class="filename">/usr/share/man</code> before it starts to
+          decompress the docs. The <code class=
+          "option">--no-same-owner</code> option stops tar from preserving
+          the user and group details of the files. This is useful as that
+          user or group may not exist on your system; this could
+          (potentially) be a security risk.
+        </p>
+        <p>
+          <span class="command"><strong>mv /usr/share/doc/git-2.49.0
+          ...</strong></span>: These commands move some of the files into
+          subfolders to make it easier to sort through the docs and find what
+          you're looking for.
+        </p>
+        <p>
+          <span class="command"><strong>find ... chmod ...</strong></span>:
+          These commands correct the permissions in the shipped documentation
+          tar file.
+        </p>
+      </div>
+      <div class="configuration" lang="en" xml:lang="en">
+        <h2 class="sect2">
+          Configuring Git
+        </h2>
+        <div class="sect3" lang="en" xml:lang="en">
+          <h3 class="sect3">
+            <a id="git-config" name="git-config"></a>Config Files
+          </h3>
+          <p>
+            <code class="filename">~/.gitconfig</code> and <code class=
+            "filename">/etc/gitconfig</code>
+          </p>
+        </div>
+      </div>
+      <div class="content" lang="en" xml:lang="en">
+        <h2 class="sect2">
+          Contents
+        </h2>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">Installed Programs:</strong>
+              <span class="segbody">git, git-receive-pack,
+              git-upload-archive, and git-upload-pack (hardlinked to each
+              other), git-cvsserver, git-shell, gitk, and scalar</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">Installed Libraries:</strong>
+              <span class="segbody">None</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">Installed Directories:</strong>
+              <span class="segbody">/usr/libexec/git-core,
+              /usr/lib/perl5/5.40/site_perl/Git, and
+              /usr/share/{doc/git-2.49.0,git-core,git-gui,gitk,gitweb}</span>
+            </div>
+          </div>
+        </div>
+        <div class="variablelist">
+          <h3>
+            Short Descriptions
+          </h3>
+          <table border="0" class="variablelist">
+            <colgroup>
+              <col align="left" valign="top" />
+              <col />
+            </colgroup>
+            <tbody>
+              <tr>
+                <td>
+                  <p>
+                    <a id="git-prog" name="git-prog"></a><span class=
+                    "term"><span class=
+                    "command"><strong>git</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    is the stupid content tracker
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="git-cvsserver" name=
+                    "git-cvsserver"></a><span class="term"><span class=
+                    "command"><strong>git-cvsserver</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    is a CVS server emulator for <span class=
+                    "application">Git</span>
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="gitk" name="gitk"></a><span class=
+                    "term"><span class=
+                    "command"><strong>gitk</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    is a graphical <span class="application">Git</span>
+                    repository browser (needs <a class="ulink" href=
+                    "https://www.linuxfromscratch.org/blfs/view/svn/general/tk.html">
+                    Tk</a>)
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="git-receive-pack" name=
+                    "git-receive-pack"></a><span class="term"><span class=
+                    "command"><strong>git-receive-pack</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    is invoked by <span class="command"><strong>git
+                    send-pack</strong></span> and updates the repository with
+                    the information fed from the remote end
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="git-shell" name="git-shell"></a><span class=
+                    "term"><span class=
+                    "command"><strong>git-shell</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    is a login shell for SSH accounts to provide restricted
+                    Git access
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="git-upload-archive" name=
+                    "git-upload-archive"></a><span class="term"><span class=
+                    "command"><strong>git-upload-archive</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    is invoked by <span class="command"><strong>git archive
+                    --remote</strong></span> and sends a generated archive to
+                    the other end over the git protocol
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="git-upload-pack" name=
+                    "git-upload-pack"></a><span class="term"><span class=
+                    "command"><strong>git-upload-pack</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    is invoked by <span class="command"><strong>git
+                    fetch-pack</strong></span>, it discovers what objects the
+                    other side is missing, and sends them after packing
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="scalar" name="scalar"></a><span class=
+                    "term"><span class=
+                    "command"><strong>scalar</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    is a repository management tool that optimizes Git for
+                    use in large repositories
+                  </p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="wget.html" title="Wget-1.25.0">Prev</a>
+          <p>
+            Wget-1.25.0
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="dbus-pass1.html" title=
+          "dbus-1.16.2 - Pass 1">Next</a>
+          <p>
+            dbus-1.16.2 - Pass 1
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="sdintro.html" title=
+          "Chapter&nbsp;3.&nbsp;Shared Dependencies">Up</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "  Gaming Linux® From Scratch    (System V Edition)  - Version #497a1">
+          Home</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>
